@@ -31,6 +31,11 @@ def main(out_dir: str) -> None:
     Image.fromarray((img * 255.0).round().astype(np.uint8), mode="L").save(
         out / "sample_crack_64.png")
 
+    # ---- 128x128 版本（灰度偏移页面的尺寸上限演示） ----
+    big = np.repeat(np.repeat(img, 2, axis=0), 2, axis=1)
+    Image.fromarray((big * 255.0).round().astype(np.uint8), mode="L").save(
+        out / "sample_crack_128.png")
+
     # ---- 小图样例（8x8），便于手工核对窗口/预算 ----
     small = rng.random((8, 8))
     Image.fromarray((small * 255.0).round().astype(np.uint8), mode="L").save(
@@ -48,7 +53,7 @@ def main(out_dir: str) -> None:
     (out / "weights.json").write_text(
         json.dumps(weights, indent=2), encoding="utf-8")
 
-    print(f"已生成样例：{out}/sample_crack_64.png, "
+    print(f"已生成样例：{out}/sample_crack_64.png, {out}/sample_crack_128.png, "
           f"{out}/sample_random_8.png, {out}/weights.json")
 
 
